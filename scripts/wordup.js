@@ -129,8 +129,11 @@ function render() {
     // clear stuff
     $("#allowed-letters").empty();
     $("#word-submissions").empty();
+
     // TODO 10
     // Add a few things to the above code block (underneath "// clear stuff").
+    $(".disallowed-letter").remove();
+    $("#textbox").removeClass("bad-attempt").attr("disabled", false);
 
 
     // reveal the #game container
@@ -142,7 +145,7 @@ function render() {
 
     // TODO 11
     // Render the word submissions
-
+    $("#word-submissions").append(model.wordSubmissions.map(wordSubmissionChip));
 
     // Set the value of the textbox
     $("#textbox").val(model.currentAttempt).focus();
@@ -161,7 +164,7 @@ function render() {
 
         // TODO 8
         // append the red letter chips to the form
-
+        $("#word-attempt-form").append(redLetterChips);
     }
 
     // if the game is over
@@ -169,7 +172,7 @@ function render() {
     if (gameOver) {
         // TODO 9
         // disable the text box and clear its contents
-
+        $("#textbox").attr("disabled", true).val("");
     }
 }
 
@@ -286,7 +289,8 @@ function isDisallowedLetter(letter) {
     // TODO 7
     // This should return true if the letter is not an element of
     // the .allowedLetters list in the model
-    return false;
+    //return false;
+    return model.allowedLetters.indexOf(letter) == -1;
 }
 
 /**
